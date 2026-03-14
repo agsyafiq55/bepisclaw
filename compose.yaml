@@ -40,6 +40,7 @@ services:
       - WAIT_FOR_DB=True
       - PRINT_ENV_ON_LOAD=True
       # API keys
+      - CEREBRAS_API_KEY=${CEREBRAS_API_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
     depends_on:
       - agentos-db

@@ -17,6 +17,7 @@ dependencies = [
   "opentelemetry-api",
   "opentelemetry-sdk",
   "openinference-instrumentation-agno",
+  "cerebras-cloud-sdk>=1.67.0",
 ]
 
 [project.optional-dependencies]

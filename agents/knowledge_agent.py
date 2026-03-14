@@ -9,7 +9,7 @@ Run:
 """
 
 from agno.agent import Agent
-from agno.models.openai import OpenAIResponses
+from agno.models.cerebras import CerebrasOpenAI
 
 from db import create_knowledge, get_postgres_db
 
@@ -46,7 +46,7 @@ You are a knowledge assistant. You answer questions by searching your knowledge 
 knowledge_agent = Agent(
     id="knowledge-agent",
     name="Knowledge Agent",
-    model=OpenAIResponses(id="gpt-5.2"),
+    model=CerebrasOpenAI(id="llama3.1-8b"),
     db=agent_db,
     knowledge=knowledge,
     instructions=instructions,
