@@ -19,6 +19,12 @@ docs
 .env
 .envrc
 
+# Google OAuth / API secrets
+credentials.json
+token.json
+*-service-account*.json
+**/service-account*.json
+
 # ignore virtualenvs
 .venv
 venv*
