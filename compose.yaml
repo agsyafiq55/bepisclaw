@@ -27,6 +27,9 @@ services:
     volumes:
       # Hot-reload: mount source code
       - .:/app
+      # Mount Gmail credentials (OAuth token for API access)
+      - ./credentials.json:/app/credentials.json:ro
+      - ./token.json:/app/token.json
     environment:
       - RUNTIME_ENV=dev
       - AGNO_DEBUG=True
@@ -42,6 +45,7 @@ services:
       # API keys
       - CEREBRAS_API_KEY=${CEREBRAS_API_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
     depends_on:
       - agentos-db
     networks:

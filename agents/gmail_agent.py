@@ -11,6 +11,9 @@ Run:
 from agno.agent import Agent
 from agno.models.cerebras import CerebrasOpenAI
 from agno.tools.google.gmail import GmailTools
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from db import get_postgres_db
 
@@ -25,16 +28,24 @@ agent_db = get_postgres_db()
 instructions = """\
 You are a Gmail assistant. Your job is to scan emails, filter out automated messages, and draft replies for human emails.
 
+## IMPORTANT: Tool Usage
+
+You have access to Gmail tools. You MUST use them to complete tasks.
+- When asked to check emails, call get_unread_emails tool directly
+- When creating drafts, call create_draft_email tool directly
+- Do NOT output JSON or describe what you would do
+- Actually invoke the tools and return their results
+
 ## Workflow
 
-1. Fetch unread emails using get_unread_emails
+1. Fetch unread emails using get_unread_emails tool with count parameter
 2. For each email, classify as "human" or "automated"
 3. Skip automated emails (no-reply, newsletters, marketing, notifications)
 4. For human emails:
-   - Read the thread context if available
+   - Read the thread context if available using get_thread
    - Understand the sender's intent
    - Draft a natural, professional reply matching the sender's tone
-   - Save as a draft using create_draft_email (NEVER auto-send)
+   - Save as a draft using create_draft_email tool (NEVER auto-send)
 
 ## Classification Rules
 
@@ -66,8 +77,10 @@ Use LLM judgment for edge cases.
 gmail_agent = Agent(
     id="gmail-agent",
     name="Gmail Agent",
-    model=CerebrasOpenAI(id="llama3.1-8b"),
+    model=CerebrasOpenAI(id="qwen-3-235b-a22b-instruct-2507"),
     tools=[GmailTools(
+        credentials_path="credentials.json",
+        port=0,
         get_latest_emails=True,
         get_unread_emails=True,
         create_draft_email=True,

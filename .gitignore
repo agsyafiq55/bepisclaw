@@ -38,6 +38,10 @@ ENV/
 .env
 .envrc
 
+# Google OAuth credentials
+credentials.json
+token.json
+
 # =========================
 # Jupyter / notebooks
 # =========================
