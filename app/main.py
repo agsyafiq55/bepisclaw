@@ -13,6 +13,7 @@ from pathlib import Path
 
 from agno.os import AgentOS
 
+from agents.gmail_agent import gmail_agent
 from agents.knowledge_agent import knowledge_agent
 from db import get_postgres_db
 
@@ -28,7 +29,7 @@ agent_os = AgentOS(
     scheduler=True,
     scheduler_base_url=scheduler_base_url,
     db=get_postgres_db(),
-    agents=[knowledge_agent],
+    agents=[knowledge_agent, gmail_agent],
     config=str(Path(__file__).parent / "config.yaml"),
 )
 

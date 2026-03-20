@@ -8,3 +8,7 @@ chat:
       - "What is Agno?"
       - "What tools do you have access to?"
       - "What are Learning Machines?"
+    gmail-agent:
+      - "Scan my unread emails and draft replies to human senders"
+      - "Process my latest 10 emails, skip automated ones"
+      - "Show me what emails need replies"
