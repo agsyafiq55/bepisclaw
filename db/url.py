@@ -8,6 +8,10 @@ Build database connection URL from environment variables.
 from os import getenv
 from urllib.parse import quote
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 def build_db_url() -> str:
     """Build database URL from environment variables."""

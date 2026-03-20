@@ -11,11 +11,8 @@ Run:
 from agno.agent import Agent
 from agno.models.cerebras import CerebrasOpenAI
 from agno.tools.google.gmail import GmailTools
-from db import get_postgres_db 
-from dotenv import load_dotenv
 
-load_dotenv()
-
+from db import get_postgres_db
 
 # ---------------------------------------------------------------------------
 # Setup
