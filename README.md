@@ -1,24 +1,26 @@
-# AgentOS Docker Template
+# BepisClaw
 
-Deploy a multi-agent system on Docker.
+**BepisClaw** is a collection of personal AI agents built with the [Agno](https://docs.agno.com) framework. They automate everyday tasks and help solve day-to-day problems.
+
+This repo starts from Agno’s **[AgentOS Docker template](https://github.com/agno-agi/agentos-docker-template)** (multi-agent [AgentOS](https://docs.agno.com/agent-os/introduction) on Docker, with PostgreSQL/pgvector via Compose). The template supplies the container layout, AgentOS wiring, and database stack; BepisClaw layers custom agents and configuration on top.
 
 ## What's Included
 
 | Agent | Pattern | Description |
 |-------|---------|-------------|
 | Knowledge Agent | Agentic RAG | Answers questions from a knowledge base. |
-| MCP Agent | MCP Tool Use | Connects to external services via MCP. |
+| Gmail Agent | Tool use | Scans Gmail, filters automated mail, drafts replies for human messages. |
 
 ## Get Started
 
 ```sh
-# Clone the repo
-git clone https://github.com/agno-agi/agentos-docker-template.git agentos
-cd agentos
+# Clone this repository
+git clone <YOUR_REPO_URL> bepisclaw
+cd bepisclaw
 
-# Add OPENAI_API_KEY
+# Add API keys (see example.env / project docs)
 cp example.env .env
-# Edit .env and add your key
+# Edit .env
 
 # Start the application
 docker compose up -d --build
@@ -59,17 +61,19 @@ How do I create my first agent?
 What documents are in your knowledge base?
 ```
 
-### MCP Agent
+### Gmail Agent
 
-Connects to external tools via the Model Context Protocol.
+Uses Google Gmail tools to read unread mail, classify automated vs human senders, and create drafts.
 
 **Try it:**
 
 ```
-What tools do you have access to?
-Search the docs for how to use LearningMachine
-Find examples of agents with memory
+List my unread emails and summarize each.
+Which of these look like real human messages vs newsletters or no-reply?
+Draft a short reply to the first human thread.
 ```
+
+*Gmail setup (credentials, OAuth) is project-specific; ensure `credentials.json` / `token.json` and env vars match your Compose mounts.*
 
 ## Common Tasks
 
@@ -98,7 +102,7 @@ from agents.my_agent import my_agent
 
 agent_os = AgentOS(
     name="AgentOS",
-    agents=[knowledge_agent, mcp_agent, my_agent],
+    agents=[knowledge_agent, gmail_agent, my_agent],
     ...
 )
 ```
@@ -138,6 +142,7 @@ from agno.models.anthropic import Claude
 
 model=Claude(id="claude-sonnet-4-5")
 ```
+
 3. Add dependency: `anthropic` in `pyproject.toml`
 
 ---
@@ -145,6 +150,7 @@ model=Claude(id="claude-sonnet-4-5")
 ## Local Development
 
 For development without Docker:
+
 ```sh
 # Install uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -172,8 +178,11 @@ python -m app.main
 | `DB_DATABASE` | No | `ai` | Database name |
 | `RUNTIME_ENV` | No | `prd` | Set to `dev` for auto-reload |
 
+Additional keys (e.g. `CEREBRAS_API_KEY`, `GOOGLE_API_KEY`) may be required depending on which agents and models you enable; see `compose.yaml` and `example.env`.
+
 ## Learn More
 
+- [AgentOS Docker template](https://github.com/agno-agi/agentos-docker-template)
 - [Agno Documentation](https://docs.agno.com)
 - [AgentOS Documentation](https://docs.agno.com/agent-os/introduction)
 - [Agno Discord](https://agno.com/discord)
