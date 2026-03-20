@@ -36,7 +36,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "agno", extras = ["os"] },
+    { name = "agno", extras = ["os"], specifier = ">=2.5.9" },
     { name = "cerebras-cloud-sdk", specifier = ">=1.67.0" },
     { name = "fastapi", extras = ["standard"] },
     { name = "google-api-python-client" },

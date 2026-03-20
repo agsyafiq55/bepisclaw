@@ -78,13 +78,15 @@ gmail_agent = Agent(
     id="gmail-agent",
     name="Gmail Agent",
     model=CerebrasOpenAI(id="qwen-3-235b-a22b-instruct-2507"),
-    tools=[GmailTools(
-        credentials_path="credentials.json",
-        port=0,
-        get_latest_emails=True,
-        get_unread_emails=True,
-        create_draft_email=True,
-    )],
+    tools=[
+        GmailTools(
+            credentials_path="credentials.json",
+            port=0,
+            get_latest_emails=True,
+            get_unread_emails=True,
+            create_draft_email=True,
+        )
+    ],
     db=agent_db,
     instructions=instructions,
     enable_agentic_memory=True,
